@@ -142,7 +142,7 @@ function verGastos() {
   alert("Reparto de gastos (pendiente)");
 }
 
-//Leer y Editar JSON
+// Leer y Editar JSON
 const FILE_ID = "1hrVIriz_hi-0ymKJtv-GWCokKjLXdAu0"; // ID real del archivo en Drive
 
 async function leerJsonDeDrive() {
@@ -181,7 +181,18 @@ async function sobrescribirJsonEnDrive(nuevoContenido) {
   }
 }
 
-// Modo sin conexion
+// Función para iniciar sesión en Google Drive (necesaria para poder hacer operaciones)
+async function signInDrive() {
+  return new Promise((resolve, reject) => {
+    gapi.auth2.getAuthInstance().signIn().then(() => {
+      gapi.client.load('drive', 'v3', () => {
+        resolve();
+      });
+    }).catch(err => reject(err));
+  });
+}
+
+// Modo sin conexión
 function guardarListaLocalmente(lista) {
   localStorage.setItem("listaCompraOffline", JSON.stringify(lista));
 }
@@ -202,8 +213,8 @@ async function sincronizarConDrive() {
   if (listaOffline) {
     const datos = JSON.parse(listaOffline);
     try {
-      await signInDrive(); // Asegúrate de que esta función exista
-      await sobrescribirJsonEnDrive(datos); // También esta
+      await signInDrive();
+      await sobrescribirJsonEnDrive(datos);
       localStorage.removeItem("listaCompraOffline");
       console.log("Lista sincronizada con Drive.");
     } catch (error) {
@@ -228,7 +239,7 @@ function guardarListaCompra(lista) {
   }
 }
 
-//Lista Compra
+// Lista Compra
 let lineaAEliminar = null;
 let datosCompra = [];
 
