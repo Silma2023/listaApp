@@ -15,8 +15,8 @@ window.onload = function () {
   const userSelector = document.getElementById("userSelector");
   if (userSelector) userSelector.style.display = "none";
 
-  const modalClave = document.getElementById("modalClave");
-  if (modalClave) modalClave.style.display = "none";
+  const claveInputContainer = document.getElementById("claveInputContainer");
+  if (claveInputContainer) claveInputContainer.style.display = "none";
 
   const pantallaPrincipal = document.getElementById("pantallaPrincipal");
   if (pantallaPrincipal) pantallaPrincipal.style.display = "none";
@@ -37,11 +37,9 @@ const claves = {
 };
 
 function handleCredentialResponse(response) {
-  // Decodificar el JWT para obtener el nombre del usuario (opcional)
   const data = parseJwt(response.credential);
   console.log("Google login OK:", data.name);
 
-  // Ocultar login Google y mostrar selector persona
   const loginBtn = document.getElementById("login");
   if (loginBtn) loginBtn.style.display = "none";
 
@@ -54,9 +52,7 @@ function parseJwt(token) {
   const base64 = decodeURIComponent(
     atob(base64Url)
       .split("")
-      .map(function (c) {
-        return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-      })
+      .map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
       .join("")
   );
   return JSON.parse(base64);
@@ -64,19 +60,25 @@ function parseJwt(token) {
 
 function abrirModalClave(nombre) {
   usuarioSeleccionado = nombre;
-  const modalClave = document.getElementById("modalClave");
-  if (modalClave) modalClave.style.display = "flex";
 
+  // Mostrar el contenedor de clave
+  const claveInputContainer = document.getElementById("claveInputContainer");
+  if (claveInputContainer) claveInputContainer.style.display = "flex";
+
+  // Limpiar input clave
   const inputClave = document.getElementById("inputClave");
-  if (inputClave) inputClave.value = "";
+  if (inputClave) {
+    inputClave.value = "";
+    inputClave.focus();
+  }
 
+  // Ocultar error
   const errorClave = document.getElementById("errorClave");
   if (errorClave) errorClave.style.display = "none";
 
-  const modalTitulo = document.getElementById("modalTitulo");
-  if (modalTitulo) modalTitulo.textContent = `Clave para ${nombre}`;
-
-  if (inputClave) inputClave.focus();
+  // Actualizar el label para que muestre el nombre (opcional)
+  const labelClave = claveInputContainer ? claveInputContainer.querySelector("label") : null;
+  if (labelClave) labelClave.textContent = `Clave para ${nombre}:`;
 }
 
 function validarClave() {
@@ -86,8 +88,8 @@ function validarClave() {
   if (claveIngresada === claves[usuarioSeleccionado]) {
     localStorage.setItem("usuario", usuarioSeleccionado);
 
-    const modalClave = document.getElementById("modalClave");
-    if (modalClave) modalClave.style.display = "none";
+    const claveInputContainer = document.getElementById("claveInputContainer");
+    if (claveInputContainer) claveInputContainer.style.display = "none";
 
     const userSelector = document.getElementById("userSelector");
     if (userSelector) userSelector.style.display = "none";
@@ -101,7 +103,7 @@ function validarClave() {
 
 function mostrarPantallaPrincipal() {
   const pantallaPrincipal = document.getElementById("pantallaPrincipal");
-  if (pantallaPrincipal) pantallaPrincipal.style.display = "block";
+  if (pantallaPrincipal) pantallaPrincipal.style.display = "flex";
 
   const infoUsuario = document.getElementById("infoUsuario");
   if (infoUsuario) infoUsuario.textContent = `Bienvenido/a, ${usuarioSeleccionado}`;
@@ -116,6 +118,9 @@ function cerrarSesion() {
 
   const userSelector = document.getElementById("userSelector");
   if (userSelector) userSelector.style.display = "none";
+
+  const claveInputContainer = document.getElementById("claveInputContainer");
+  if (claveInputContainer) claveInputContainer.style.display = "none";
 
   const loginBtn = document.getElementById("login");
   if (loginBtn) loginBtn.style.display = "block";
