@@ -2,18 +2,159 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Lista Compartida</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <title>Lista Compartida</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f2f5;
+    }
+    .card {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+      margin: 3rem auto;
+    }
+    h2 {
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+    .user-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+    .user-buttons button {
+      flex: 1;
+      margin: 0 0.5rem;
+      padding: 1rem;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 12px;
+      background-color: #e0f2f1;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .user-buttons button:hover {
+      background-color: #b2dfdb;
+    }
+    input[type="password"] {
+      width: 100%;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    .hidden {
+      display: none;
+    }
+    header {
+      background-color: #4caf50;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      font-size: 1.5rem;
+    }
+    .main-menu {
+      max-width: 600px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+    .menu button {
+      display: block;
+      width: 100%;
+      margin: 0.5rem 0;
+      padding: 1rem;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 10px;
+      background-color: #e3f2fd;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .menu button:hover {
+      background-color: #bbdefb;
+    }
+  </style>
 </head>
 <body>
-  <h1>Lista de la compra</h1>
-  <div id="login"></div>
-  <div id="user-info" style="display:none;">
-    <p>Hola, <span id="username"></span> 👋</p>
-    <!-- Aquí irá la lista más adelante -->
+
+  <!-- Pantalla de selección de usuario -->
+  <div class="card" id="userSelector">
+    <h2>¿Quién eres?</h2>
+    <div class="user-buttons">
+      <button onclick="elegirUsuario('Silvia')">👩‍🦰 Silvia</button>
+      <button onclick="elegirUsuario('Manuel')">👨 Manuel</button>
+    </div>
+    <input type="password" id="clave" placeholder="Introduce tu clave" />
+    <div id="errorClave" style="color: red; display: none;">Clave incorrecta</div>
   </div>
 
-  <script src="script.js"></script>
+  <!-- Pantalla principal -->
+  <div id="pantallaPrincipal" class="hidden">
+    <header>🛍️ Lista Compartida</header>
+    <div class="main-menu">
+      <div class="user-info" style="margin-bottom: 1rem;">
+        Bienvenido/a, <strong id="usuarioNombre"></strong>
+      </div>
+      <div class="menu">
+        <button onclick="mostrarLista()">🛒 Lista de la compra</button>
+        <button onclick="escanearTicket()">📸 Escanear ticket</button>
+        <button onclick="verGastos()">💰 Reparto de gastos</button>
+        <button onclick="cambiarUsuario()">🔁 Cambiar usuario</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const claves = {
+      Silvia: 'rosa2024',
+      Manuel: 'azul2024'
+    };
+
+    function elegirUsuario(nombre) {
+      const claveIngresada = document.getElementById("clave").value;
+      if (claveIngresada === claves[nombre]) {
+        localStorage.setItem("usuario", nombre);
+        mostrarPantallaPrincipal(nombre);
+      } else {
+        document.getElementById("errorClave").style.display = 'block';
+      }
+    }
+
+    function mostrarPantallaPrincipal(nombre) {
+      document.getElementById("userSelector").classList.add("hidden");
+      document.getElementById("pantallaPrincipal").classList.remove("hidden");
+      document.getElementById("usuarioNombre").textContent = nombre;
+    }
+
+    function cambiarUsuario() {
+      localStorage.removeItem("usuario");
+      location.reload();
+    }
+
+    // Al cargar
+    window.onload = function () {
+      const usuario = localStorage.getItem("usuario");
+      if (usuario) {
+        mostrarPantallaPrincipal(usuario);
+      }
+    };
+
+    // Estos son ejemplos (más adelante los definiremos)
+    function mostrarLista() { alert("Lista de la compra"); }
+    function escanearTicket() { alert("Escanear ticket"); }
+    function verGastos() { alert("Reparto de gastos"); }
+  </script>
 </body>
 </html>
