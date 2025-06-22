@@ -389,6 +389,33 @@ body {
     </div>
   </div>
 
+<!-- Lista de la Compra -->
+<div id="seccionLista" style="display:none; flex-direction:column; gap:20px; padding:20px; max-width:400px; margin:auto;">
+  <h2 style="display:flex; align-items:center; gap:10px; color:#236B8E; font-size:1.8rem;">
+    🛒 Lista de la Compra
+  </h2>
+
+  <div style="display:flex; gap:10px; flex-wrap:wrap;">
+    <button onclick="agregarLinea()" style="flex:1;" class="menu-button">
+      ➕ Añadir
+    </button>
+    <button onclick="borrarMarcados()" style="flex:1;" class="menu-button">
+      🗑️ Borrar Comprado
+    </button>
+  </div>
+
+  <div id="contenedorLista" style="display:flex; flex-direction:column; gap:10px;"></div>
+</div>
+
+<!-- Modal Confirmación Borrado Línea -->
+<div id="modalConfirmacion" class="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); justify-content:center; align-items:center;">
+  <div style="background:white; padding:20px 30px; border-radius:12px; text-align:center; max-width:300px;">
+    <p style="margin-bottom:20px;">¿Seguro que quieres eliminar esta línea?</p>
+    <button onclick="confirmarBorrado(true)" class="menu-button" style="margin-right:10px;">Sí</button>
+    <button onclick="confirmarBorrado(false)" class="menu-button">No</button>
+  </div>
+</div>
+
   <!-- Google Identity Services -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 
