@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>Lista Compartida - Login</title>
   <style>
+    /* Fuentes y básicos */
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0; padding: 0;
@@ -28,7 +29,8 @@
       margin-bottom: 20px;
       font-weight: 700;
       font-size: 1.6rem;
-      color: #2c3e50;
+      color: #2980b9; /* azul encabezado */
+      letter-spacing: 0.5px;
     }
     .user-buttons {
       display: flex;
@@ -37,32 +39,28 @@
       margin-bottom: 20px;
     }
     .user-buttons button {
-      font-size: 1.8rem; /* un poco más pequeño para los iconos */
+      font-size: 2.2rem;
       padding: 16px 28px;
       border-radius: 14px;
       border: none;
       cursor: pointer;
-      background-color: #3498db;
-      color: white;
-      box-shadow: 0 6px 12px rgba(52, 152, 219, 0.5);
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      background-color: white; /* blanco */
+      color: #2980b9; /* azul texto */
+      box-shadow: 0 6px 12px rgba(41, 128, 185, 0.3); /* sombra suave azul */
+      transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
       flex: 1;
       max-width: 130px;
       display: flex;
-      justify-content: center;
       align-items: center;
-      gap: 10px;
+      justify-content: center;
+      gap: 8px;
+      font-weight: 700;
+      border: 2px solid #2980b9;
     }
     .user-buttons button:hover {
       background-color: #2980b9;
+      color: white;
       box-shadow: 0 8px 20px rgba(41, 128, 185, 0.7);
-    }
-    /* Feather icon in user buttons */
-    .user-buttons button i {
-      stroke: white;
-      stroke-width: 2.5;
-      width: 30px;
-      height: 30px;
     }
 
     #claveInputContainer {
@@ -92,7 +90,7 @@
       transition: border-color 0.3s ease;
     }
     #claveInputContainer input:focus {
-      border-color: #3498db;
+      border-color: #2980b9;
     }
     #claveInputContainer button {
       background-color: #27ae60;
@@ -139,18 +137,12 @@
       font-weight: 800;
       margin-bottom: 35px;
       text-align: center;
-      color: #2980b9;
+      color: #2980b9; /* azul */
       letter-spacing: 1px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-    }
-    #pantallaPrincipal header i {
-      stroke: #2980b9;
-      stroke-width: 2.5;
-      width: 36px;
-      height: 36px;
+      gap: 12px;
     }
     .user-info {
       font-size: 1.3rem;
@@ -178,16 +170,25 @@
       box-shadow: 0 8px 18px rgba(41, 128, 185, 0.6);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-    .menu button i {
-      stroke: white;
-      stroke-width: 2.5;
+    .menu button svg {
       width: 28px;
       height: 28px;
-      flex-shrink: 0;
+      fill: white;
     }
     .menu button:hover {
       background-color: #1f5d8a;
       box-shadow: 0 10px 25px rgba(31, 93, 138, 0.85);
+    }
+
+    /* Botón Cerrar sesión con rojo y blanco */
+    .menu button.cerrar-sesion {
+      background-color: #e74c3c;
+      margin-top: 25px;
+      box-shadow: 0 8px 18px rgba(231, 76, 60, 0.6);
+    }
+    .menu button.cerrar-sesion:hover {
+      background-color: #c0392b;
+      box-shadow: 0 10px 25px rgba(192, 57, 43, 0.85);
     }
 
     /* Modal confirmación cierre sesión */
@@ -257,7 +258,7 @@
         padding: 25px 15px;
       }
       .user-buttons button {
-        font-size: 1.6rem;
+        font-size: 1.8rem;
         padding: 14px 18px;
         max-width: 110px;
       }
@@ -266,15 +267,13 @@
         justify-content: center;
         font-size: 1.2rem;
       }
-      .menu button i {
+      .menu button svg {
         width: 24px;
         height: 24px;
       }
     }
   </style>
-
-  <!-- Feather Icons CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+  <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body>
   <!-- Google login button -->
@@ -314,15 +313,15 @@
         <i data-feather="dollar-sign"></i>
         Reparto de gastos
       </button>
-      <button onclick="cerrarSesion()">
+      <button onclick="abrirModalCerrarSesion()" class="cerrar-sesion">
         <i data-feather="log-out"></i>
         Cerrar sesión
       </button>
     </div>
   </div>
 
-  <!-- Modal cerrar sesión -->
-  <div id="modalCerrarSesion">
+  <!-- Modal cierre sesión -->
+  <div id="modalCerrarSesion" style="display:none; justify-content:center; align-items:center;">
     <div class="modal-content">
       <p>¿Quieres cerrar sesión?</p>
       <div class="buttons">
@@ -332,11 +331,48 @@
     </div>
   </div>
 
-  <script>
-    // Renderizar Feather Icons
-    feather.replace();
+  <!-- Google Identity Services -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 
-    // Aquí iría tu JS para lógica, eventos, etc.
+  <script>
+    // Añadir eventos botones usuarios para abrir modal clave
+    document.getElementById("btnSilvia").addEventListener("click", function() {
+      abrirModalClave("Silvia");
+    });
+    document.getElementById("btnManuel").addEventListener("click", function() {
+      abrirModalClave("Manuel");
+    });
+
+    // Evento botón iniciar sesión
+    document.getElementById("btnIniciarSesion").addEventListener("click", validarClave);
+
+    // Mostrar modal de confirmación para cerrar sesión
+    function abrirModalCerrarSesion() {
+      const modal = document.getElementById("modalCerrarSesion");
+      if (modal) modal.style.display = "flex";
+    }
+
+    // Manejar botones modal cerrar sesión
+    document.getElementById("btnNo").addEventListener("click", function() {
+      const modal = document.getElementById("modalCerrarSesion");
+      if (modal) modal.style.display = "none";
+    });
+
+    document.getElementById("btnSi").addEventListener("click", function() {
+      cerrarSesion();
+      const modal = document.getElementById("modalCerrarSesion");
+      if (modal) modal.style.display = "none";
+    });
+
+    // Renderizar iconos Feather al cargar DOM
+    document.addEventListener('DOMContentLoaded', () => {
+      if(window.feather) {
+        feather.replace();
+      }
+    });
   </script>
+
+  <!-- Tu script externo -->
+  <script src="script.js"></script>
 </body>
 </html>
