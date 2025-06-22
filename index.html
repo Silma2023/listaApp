@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-  <title>Lista Compartida - Login</title>
+  <title>ListaApp</title>
   <style>
-    /* Fuentes y básicos */
     /* Fuentes y básicos */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -33,7 +32,7 @@ body {
   margin-bottom: 22px;
   font-weight: 600;
   font-size: 1.75rem;
-  color: #2f80ed; /* azul más suave y moderno */
+  color: #236B8E; /* verde azulado elegante */
   letter-spacing: 0.4px;
 }
 
@@ -45,29 +44,30 @@ body {
 }
 
 .user-buttons button {
-  font-size: 2.1rem;
-  padding: 14px 26px;
+  font-size: 1.8rem;
+  padding: 12px 18px;
   border-radius: 12px;
-  border: 1.5px solid #2f80ed;
+  border: 1.5px solid #236B8E;
   background-color: #fff;
-  color: #2f80ed;
+  color: #236B8E;
   box-shadow: none; /* quitar sombra para minimalismo */
   cursor: pointer;
   transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
   flex: 1;
-  max-width: 130px;
+  max-width: 140px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .user-buttons button:hover {
-  background-color: #2f80ed;
+  background-color: #236B8E;
   color: #fff;
-  border-color: #2f80ed;
-  box-shadow: 0 4px 12px rgba(47, 128, 237, 0.25);
+  border-color: #236B8E;
+  box-shadow: 0 4px 12px rgba(35, 107, 142, 0.35);
 }
 
 #claveInputContainer {
@@ -100,12 +100,12 @@ body {
 }
 
 #claveInputContainer input:focus {
-  border-color: #2f80ed;
-  box-shadow: 0 0 6px rgba(47, 128, 237, 0.3);
+  border-color: #236B8E;
+  box-shadow: 0 0 6px rgba(35, 107, 142, 0.3);
 }
 
 #claveInputContainer button {
-  background-color: #16a34a; /* verde más plano */
+  background-color: #16a34a; /* verde plano */
   border: none;
   padding: 12px 0;
   width: 100%;
@@ -126,7 +126,7 @@ body {
 }
 
 #errorClave {
-  color: #dc2626; /* rojo más plano */
+  color: #dc2626; /* rojo plano */
   margin-top: -10px;
   margin-bottom: 10px;
   display: none;
@@ -150,45 +150,84 @@ body {
   font-weight: 600;
 }
 
+/* Header con título e icono */
 #pantallaPrincipal header {
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 35px;
   text-align: center;
-  color: #2f80ed;
+  color: #236B8E;
   letter-spacing: 0.8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
 }
 
+#pantallaPrincipal header svg {
+  width: 30px;
+  height: 30px;
+  fill: #236B8E;
+}
+
+/* Globo con nombre, justificado a la izquierda */
 .user-info {
   font-size: 1.25rem;
   margin-bottom: 35px;
   color: #475569;
-  text-align: center;
+  text-align: left;
   font-weight: 600;
   font-family: 'Georgia', serif;
+  position: relative;
+  max-width: 260px;
+  padding: 14px 20px;
+  background: #e1f0f7; /* fondo celeste muy suave */
+  border-radius: 25px 25px 25px 5px;
+  box-shadow: 0 2px 8px rgba(35, 107, 142, 0.15);
+  /* Triángulo tipo globo a la izquierda */
+}
+
+.user-info::before {
+  content: "";
+  position: absolute;
+  left: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0; 
+  height: 0; 
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent; 
+  border-right: 12px solid #e1f0f7;
+}
+
+/* Menú principal */
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  max-width: 320px;
 }
 
 .menu button {
   padding: 14px 24px;
-  margin: 10px 0;
   font-size: 1.25rem;
   border: none;
   border-radius: 16px;
-  background-color: #2f80ed;
+  background-color: #236B8E;
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   align-items: center;
   gap: 10px;
-  width: auto;
-  min-width: 220px;
-  box-shadow: 0 6px 15px rgba(47, 128, 237, 0.4);
+  width: 100%;
+  max-width: 320px;
+  box-shadow: 0 6px 15px rgba(35, 107, 142, 0.4);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  justify-content: center;
+  white-space: nowrap;
 }
 
 .menu button svg {
@@ -198,20 +237,20 @@ body {
 }
 
 .menu button:hover {
-  background-color: #1d5dbb;
-  box-shadow: 0 8px 20px rgba(29, 93, 187, 0.6);
+  background-color: #1a4f65;
+  box-shadow: 0 8px 20px rgba(26, 79, 101, 0.6);
 }
 
-/* Botón Cerrar sesión */
+/* Botón Cerrar sesión - negro elegante */
 .menu button.cerrar-sesion {
-  background-color: #ef4444;
+  background-color: #111111;
   margin-top: 25px;
-  box-shadow: 0 6px 15px rgba(239, 68, 68, 0.4);
+  box-shadow: 0 6px 15px rgba(17, 17, 17, 0.4);
 }
 
 .menu button.cerrar-sesion:hover {
-  background-color: #b91c1c;
-  box-shadow: 0 8px 20px rgba(185, 28, 28, 0.6);
+  background-color: #333333;
+  box-shadow: 0 8px 20px rgba(51, 51, 51, 0.6);
 }
 
 /* Modal confirmación cierre sesión */
@@ -279,7 +318,6 @@ body {
 #modalCerrarSesion #btnSi:hover {
   background-color: #b91c1c;
 }
-
 
 /* Responsive */
 @media (max-width: 480px) {
