@@ -101,6 +101,12 @@ function validarClave() {
   }
 }
 
+// Asignar el evento al botón
+  const btnIniciarSesion = document.getElementById("btnIniciarSesion");
+  if (btnIniciarSesion) {
+    btnIniciarSesion.addEventListener("click", validarClave);
+  }
+
 function mostrarPantallaPrincipal() {
   const pantallaPrincipal = document.getElementById("pantallaPrincipal");
   if (pantallaPrincipal) pantallaPrincipal.style.display = "flex";
