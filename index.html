@@ -6,248 +6,275 @@
   <title>Lista Compartida - Login</title>
   <style>
     /* Fuentes y básicos */
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0; padding: 0;
-      background: #f5f7fa;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      color: #333;
-    }
-    #login {
-      margin-top: 50px;
-    }
-    #userSelector {
-      margin-top: 50px;
-      text-align: center;
-      max-width: 320px;
-      width: 90%;
-    }
-    #userSelector h2 {
-      margin-bottom: 20px;
-      font-weight: 700;
-      font-size: 1.6rem;
-      color: #2980b9; /* azul encabezado */
-      letter-spacing: 0.5px;
-    }
-    .user-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-bottom: 20px;
-    }
-    .user-buttons button {
-      font-size: 2.2rem;
-      padding: 16px 28px;
-      border-radius: 14px;
-      border: none;
-      cursor: pointer;
-      background-color: white; /* blanco */
-      color: #2980b9; /* azul texto */
-      box-shadow: 0 6px 12px rgba(41, 128, 185, 0.3); /* sombra suave azul */
-      transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
-      flex: 1;
-      max-width: 130px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-weight: 700;
-      border: 2px solid #2980b9;
-    }
-    .user-buttons button:hover {
-      background-color: #2980b9;
-      color: white;
-      box-shadow: 0 8px 20px rgba(41, 128, 185, 0.7);
-    }
+    /* Fuentes y básicos */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0; padding: 0;
+  background: #fafbfc; /* fondo más claro */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  color: #2f3e4e; /* texto gris oscuro */
+}
 
-    #claveInputContainer {
-      max-width: 320px;
-      width: 90%;
-      margin: 0 auto 40px auto;
-      display: none;
-      flex-direction: column;
-      align-items: center;
-    }
-    #claveInputContainer label {
-      font-weight: 600;
-      font-size: 1rem;
-      margin-bottom: 8px;
-      color: #34495e;
-      align-self: flex-start;
-    }
-    #claveInputContainer input {
-      width: 100%;
-      padding: 12px 15px;
-      font-size: 1.1rem;
-      border-radius: 10px;
-      border: 1.5px solid #bdc3c7;
-      box-sizing: border-box;
-      margin-bottom: 15px;
-      outline-offset: 2px;
-      transition: border-color 0.3s ease;
-    }
-    #claveInputContainer input:focus {
-      border-color: #2980b9;
-    }
-    #claveInputContainer button {
-      background-color: #27ae60;
-      border: none;
-      padding: 12px 0;
-      width: 100%;
-      font-size: 1.2rem;
-      border-radius: 12px;
-      color: white;
-      cursor: pointer;
-      box-shadow: 0 6px 12px rgba(39, 174, 96, 0.5);
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    }
-    #claveInputContainer button:hover {
-      background-color: #219150;
-      box-shadow: 0 8px 20px rgba(33, 145, 80, 0.7);
-    }
-    #errorClave {
-      color: #e74c3c;
-      margin-top: -10px;
-      margin-bottom: 10px;
-      display: none;
-      font-weight: 600;
-      font-size: 0.9rem;
-      align-self: flex-start;
-    }
+#login {
+  margin-top: 60px;
+}
 
-    #pantallaPrincipal {
-      margin: 30px 15px;
-      width: 100%;
-      max-width: 400px;
-      background: white;
-      border-radius: 24px;
-      padding: 30px 25px;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.12);
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      color: #2c3e50;
-      font-weight: 600;
-    }
-    #pantallaPrincipal header {
-      font-size: 2.2rem;
-      font-weight: 800;
-      margin-bottom: 35px;
-      text-align: center;
-      color: #2980b9; /* azul */
-      letter-spacing: 1px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-    }
-    .user-info {
-      font-size: 1.3rem;
-      margin-bottom: 35px;
-      color: #34495e;
-      text-align: center;
-      font-weight: 700;
-      font-family: 'Georgia', serif;
-    }
-    .menu button {
-      padding: 14px 22px;
-      margin: 12px 0;
-      font-size: 1.3rem;
-      border: none;
-      border-radius: 18px;
-      background-color: #2980b9;
-      color: white;
-      cursor: pointer;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      width: auto;
-      min-width: 220px;
-      box-shadow: 0 8px 18px rgba(41, 128, 185, 0.6);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    .menu button svg {
-      width: 28px;
-      height: 28px;
-      fill: white;
-    }
-    .menu button:hover {
-      background-color: #1f5d8a;
-      box-shadow: 0 10px 25px rgba(31, 93, 138, 0.85);
-    }
+#userSelector {
+  margin-top: 60px;
+  text-align: center;
+  max-width: 320px;
+  width: 90%;
+}
 
-    /* Botón Cerrar sesión con rojo y blanco */
-    .menu button.cerrar-sesion {
-      background-color: #e74c3c;
-      margin-top: 25px;
-      box-shadow: 0 8px 18px rgba(231, 76, 60, 0.6);
-    }
-    .menu button.cerrar-sesion:hover {
-      background-color: #c0392b;
-      box-shadow: 0 10px 25px rgba(192, 57, 43, 0.85);
-    }
+#userSelector h2 {
+  margin-bottom: 22px;
+  font-weight: 600;
+  font-size: 1.75rem;
+  color: #2f80ed; /* azul más suave y moderno */
+  letter-spacing: 0.4px;
+}
 
-    /* Modal confirmación cierre sesión */
-    #modalCerrarSesion {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-color: rgba(0,0,0,0.45);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-    }
-    #modalCerrarSesion .modal-content {
-      background: white;
-      padding: 30px 40px;
-      border-radius: 20px;
-      box-shadow: 0 12px 35px rgba(0,0,0,0.25);
-      text-align: center;
-      max-width: 320px;
-      width: 90%;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    #modalCerrarSesion p {
-      font-size: 1.25rem;
-      margin-bottom: 25px;
-      color: #2c3e50;
-      font-weight: 700;
-    }
-    #modalCerrarSesion .buttons {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-    }
-    #modalCerrarSesion button {
-      flex: 1;
-      padding: 12px 0;
-      font-size: 1.1rem;
-      border-radius: 15px;
-      border: none;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background-color 0.3s ease;
-    }
-    #modalCerrarSesion #btnNo {
-      background-color: #bdc3c7;
-      color: #2c3e50;
-      box-shadow: 0 5px 10px rgba(189, 195, 199, 0.7);
-    }
-    #modalCerrarSesion #btnNo:hover {
-      background-color: #a4a9ae;
-    }
-    #modalCerrarSesion #btnSi {
-      background-color: #e74c3c;
-      color: white;
-      box-shadow: 0 5px 10px rgba(231, 76, 60, 0.8);
-    }
-    #modalCerrarSesion #btnSi:hover {
-      background-color: #c0392b;
-    }
+.user-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.user-buttons button {
+  font-size: 2.1rem;
+  padding: 14px 26px;
+  border-radius: 12px;
+  border: 1.5px solid #2f80ed;
+  background-color: #fff;
+  color: #2f80ed;
+  box-shadow: none; /* quitar sombra para minimalismo */
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+  flex: 1;
+  max-width: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.user-buttons button:hover {
+  background-color: #2f80ed;
+  color: #fff;
+  border-color: #2f80ed;
+  box-shadow: 0 4px 12px rgba(47, 128, 237, 0.25);
+}
+
+#claveInputContainer {
+  max-width: 320px;
+  width: 90%;
+  margin: 0 auto 40px auto;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+
+#claveInputContainer label {
+  font-weight: 500;
+  font-size: 1rem;
+  margin-bottom: 8px;
+  color: #475569;
+  align-self: flex-start;
+}
+
+#claveInputContainer input {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  border: 1.2px solid #cbd5e1;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+  outline-offset: 2px;
+  transition: border-color 0.3s ease;
+}
+
+#claveInputContainer input:focus {
+  border-color: #2f80ed;
+  box-shadow: 0 0 6px rgba(47, 128, 237, 0.3);
+}
+
+#claveInputContainer button {
+  background-color: #16a34a; /* verde más plano */
+  border: none;
+  padding: 12px 0;
+  width: 100%;
+  font-size: 1.2rem;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  box-shadow: none;
+  transition: background-color 0.3s ease;
+}
+
+#claveInputContainer button:hover {
+  background-color: #15803d;
+}
+
+#errorClave {
+  color: #dc2626; /* rojo más plano */
+  margin-top: -10px;
+  margin-bottom: 10px;
+  display: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  align-self: flex-start;
+}
+
+#pantallaPrincipal {
+  margin: 30px 15px;
+  width: 100%;
+  max-width: 400px;
+  background: #fff;
+  border-radius: 20px;
+  padding: 30px 25px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  color: #334155;
+  font-weight: 600;
+}
+
+#pantallaPrincipal header {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 35px;
+  text-align: center;
+  color: #2f80ed;
+  letter-spacing: 0.8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.user-info {
+  font-size: 1.25rem;
+  margin-bottom: 35px;
+  color: #475569;
+  text-align: center;
+  font-weight: 600;
+  font-family: 'Georgia', serif;
+}
+
+.menu button {
+  padding: 14px 24px;
+  margin: 10px 0;
+  font-size: 1.25rem;
+  border: none;
+  border-radius: 16px;
+  background-color: #2f80ed;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: auto;
+  min-width: 220px;
+  box-shadow: 0 6px 15px rgba(47, 128, 237, 0.4);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.menu button svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor; /* para que herede el color del texto */
+}
+
+.menu button:hover {
+  background-color: #1d5dbb;
+  box-shadow: 0 8px 20px rgba(29, 93, 187, 0.6);
+}
+
+/* Botón Cerrar sesión */
+.menu button.cerrar-sesion {
+  background-color: #ef4444;
+  margin-top: 25px;
+  box-shadow: 0 6px 15px rgba(239, 68, 68, 0.4);
+}
+
+.menu button.cerrar-sesion:hover {
+  background-color: #b91c1c;
+  box-shadow: 0 8px 20px rgba(185, 28, 28, 0.6);
+}
+
+/* Modal confirmación cierre sesión */
+#modalCerrarSesion {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0,0,0,0.3);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+#modalCerrarSesion .modal-content {
+  background: white;
+  padding: 28px 36px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  text-align: center;
+  max-width: 320px;
+  width: 90%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#modalCerrarSesion p {
+  font-size: 1.2rem;
+  margin-bottom: 24px;
+  color: #334155;
+  font-weight: 600;
+}
+
+#modalCerrarSesion .buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+#modalCerrarSesion button {
+  flex: 1;
+  padding: 12px 0;
+  font-size: 1.1rem;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+#modalCerrarSesion #btnNo {
+  background-color: #cbd5e1;
+  color: #334155;
+  box-shadow: none;
+}
+
+#modalCerrarSesion #btnNo:hover {
+  background-color: #94a3b8;
+}
+
+#modalCerrarSesion #btnSi {
+  background-color: #ef4444;
+  color: white;
+  box-shadow: none;
+}
+
+#modalCerrarSesion #btnSi:hover {
+  background-color: #b91c1c;
+}
 
     /* Responsive */
     @media (max-width: 480px) {
