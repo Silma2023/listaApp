@@ -264,7 +264,7 @@
   </div>
 
   <!-- Campo clave y botón Iniciar -->
-  <div id="claveInputContainer">
+  <div id="claveInputContainer" style="display:none; flex-direction: column; align-items: center;">
     <label for="inputClave">Introduce tu clave:</label>
     <input type="password" id="inputClave" placeholder="Clave personal" autocomplete="off" />
     <div id="errorClave">Clave incorrecta</div>
@@ -296,7 +296,7 @@
   </div>
 
   <!-- Modal cierre sesión -->
-  <div id="modalCerrarSesion">
+  <div id="modalCerrarSesion" style="display:none; justify-content:center; align-items:center;">
     <div class="modal-content">
       <p>¿Quieres cerrar sesión?</p>
       <div class="buttons">
@@ -308,6 +308,38 @@
 
   <!-- Google Identity Services -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+  <script>
+    // Añadir eventos botones usuarios para abrir modal clave
+    document.getElementById("btnSilvia").addEventListener("click", function() {
+      abrirModalClave("Silvia");
+    });
+    document.getElementById("btnManuel").addEventListener("click", function() {
+      abrirModalClave("Manuel");
+    });
+
+    // Evento botón iniciar sesión
+    document.getElementById("btnIniciarSesion").addEventListener("click", validarClave);
+
+    // Mostrar modal de confirmación para cerrar sesión
+    function abrirModalCerrarSesion() {
+      const modal = document.getElementById("modalCerrarSesion");
+      if (modal) modal.style.display = "flex";
+    }
+
+    // Manejar botones modal cerrar sesión
+    document.getElementById("btnNo").addEventListener("click", function() {
+      const modal = document.getElementById("modalCerrarSesion");
+      if (modal) modal.style.display = "none";
+    });
+
+    document.getElementById("btnSi").addEventListener("click", function() {
+      cerrarSesion();
+      const modal = document.getElementById("modalCerrarSesion");
+      if (modal) modal.style.display = "none";
+    });
+  </script>
+
   <!-- Tu script externo -->
   <script src="script.js"></script>
 </body>
