@@ -4,23 +4,27 @@ window.onload = function () {
     callback: handleCredentialResponse
   });
 
-  google.accounts.id.renderButton(
-    document.getElementById("login"),
-    { theme: "outline", size: "large" }
-  );
+  const loginBtn = document.getElementById("login");
+  if (loginBtn) {
+    google.accounts.id.renderButton(loginBtn, { theme: "outline", size: "large" });
+  }
 
-  google.accounts.id.prompt(); // Muestra automáticamente si hay sesión activa
+  google.accounts.id.prompt();
 
-  // Al cargar, ocultamos secciones excepto login
-  document.getElementById("userSelector").style.display = "none";
-  document.getElementById("modalClave").style.display = "none";
-  document.getElementById("pantallaPrincipal").style.display = "none";
+  // Ocultar secciones si existen
+  const userSelector = document.getElementById("userSelector");
+  if (userSelector) userSelector.style.display = "none";
 
-  // Si ya hay usuario guardado local, mostramos pantalla principal directamente
+  const modalClave = document.getElementById("modalClave");
+  if (modalClave) modalClave.style.display = "none";
+
+  const pantallaPrincipal = document.getElementById("pantallaPrincipal");
+  if (pantallaPrincipal) pantallaPrincipal.style.display = "none";
+
   const usuarioGuardado = localStorage.getItem("usuario");
   if (usuarioGuardado) {
     usuarioSeleccionado = usuarioGuardado;
-    document.getElementById("login").style.display = "none";
+    if (loginBtn) loginBtn.style.display = "none";
     mostrarPantallaPrincipal();
   }
 };
@@ -38,8 +42,11 @@ function handleCredentialResponse(response) {
   console.log("Google login OK:", data.name);
 
   // Ocultar login Google y mostrar selector persona
-  document.getElementById("login").style.display = "none";
-  document.getElementById("userSelector").style.display = "block";
+  const loginBtn = document.getElementById("login");
+  if (loginBtn) loginBtn.style.display = "none";
+
+  const userSelector = document.getElementById("userSelector");
+  if (userSelector) userSelector.style.display = "block";
 }
 
 function parseJwt(token) {
@@ -57,37 +64,63 @@ function parseJwt(token) {
 
 function abrirModalClave(nombre) {
   usuarioSeleccionado = nombre;
-  document.getElementById("modalClave").style.display = "flex";
-  document.getElementById("inputClave").value = "";
-  document.getElementById("errorClave").style.display = "none";
-  document.getElementById("modalTitulo").textContent = `Clave para ${nombre}`;
-  document.getElementById("inputClave").focus();
+  const modalClave = document.getElementById("modalClave");
+  if (modalClave) modalClave.style.display = "flex";
+
+  const inputClave = document.getElementById("inputClave");
+  if (inputClave) inputClave.value = "";
+
+  const errorClave = document.getElementById("errorClave");
+  if (errorClave) errorClave.style.display = "none";
+
+  const modalTitulo = document.getElementById("modalTitulo");
+  if (modalTitulo) modalTitulo.textContent = `Clave para ${nombre}`;
+
+  if (inputClave) inputClave.focus();
 }
 
 function validarClave() {
-  const claveIngresada = document.getElementById("inputClave").value;
+  const inputClave = document.getElementById("inputClave");
+  const claveIngresada = inputClave ? inputClave.value : "";
+
   if (claveIngresada === claves[usuarioSeleccionado]) {
     localStorage.setItem("usuario", usuarioSeleccionado);
-    document.getElementById("modalClave").style.display = "none";
-    document.getElementById("userSelector").style.display = "none";
+
+    const modalClave = document.getElementById("modalClave");
+    if (modalClave) modalClave.style.display = "none";
+
+    const userSelector = document.getElementById("userSelector");
+    if (userSelector) userSelector.style.display = "none";
+
     mostrarPantallaPrincipal();
   } else {
-    document.getElementById("errorClave").style.display = "block";
+    const errorClave = document.getElementById("errorClave");
+    if (errorClave) errorClave.style.display = "block";
   }
 }
 
 function mostrarPantallaPrincipal() {
-  document.getElementById("pantallaPrincipal").style.display = "block";
-  document.getElementById("infoUsuario").textContent = `Bienvenido/a, ${usuarioSeleccionado}`;
+  const pantallaPrincipal = document.getElementById("pantallaPrincipal");
+  if (pantallaPrincipal) pantallaPrincipal.style.display = "block";
+
+  const infoUsuario = document.getElementById("infoUsuario");
+  if (infoUsuario) infoUsuario.textContent = `Bienvenido/a, ${usuarioSeleccionado}`;
 }
 
 function cerrarSesion() {
   localStorage.removeItem("usuario");
   usuarioSeleccionado = null;
-  document.getElementById("pantallaPrincipal").style.display = "none";
-  document.getElementById("userSelector").style.display = "none";
-  document.getElementById("login").style.display = "block";
-  google.accounts.id.prompt(); // Muestra botón login Google
+
+  const pantallaPrincipal = document.getElementById("pantallaPrincipal");
+  if (pantallaPrincipal) pantallaPrincipal.style.display = "none";
+
+  const userSelector = document.getElementById("userSelector");
+  if (userSelector) userSelector.style.display = "none";
+
+  const loginBtn = document.getElementById("login");
+  if (loginBtn) loginBtn.style.display = "block";
+
+  google.accounts.id.prompt();
 }
 
 // Funciones botones menú (pendientes de implementar)
