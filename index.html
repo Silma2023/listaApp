@@ -5,278 +5,274 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>Lista Compartida - Login</title>
   <style>
-    /* Fuentes y básicos */
-    /* Fuentes y básicos */
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0; padding: 0;
-  background: #fafbfc; /* fondo más claro */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  color: #2f3e4e; /* texto gris oscuro */
-}
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0; padding: 0;
+      background: #fafbfc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      color: #2f3e4e;
+    }
 
-#login {
-  margin-top: 60px;
-}
+    #login {
+      margin-top: 60px;
+    }
 
-#userSelector {
-  margin-top: 60px;
-  text-align: center;
-  max-width: 320px;
-  width: 90%;
-}
+    #userSelector {
+      margin-top: 60px;
+      text-align: center;
+      max-width: 320px;
+      width: 90%;
+    }
 
-#userSelector h2 {
-  margin-bottom: 22px;
-  font-weight: 600;
-  font-size: 1.75rem;
-  color: #2f80ed; /* azul más suave y moderno */
-  letter-spacing: 0.4px;
-}
+    #userSelector h2 {
+      margin-bottom: 22px;
+      font-weight: 600;
+      font-size: 1.75rem;
+      color: #2f80ed;
+      letter-spacing: 0.4px;
+    }
 
-.user-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 18px;
-  margin-bottom: 22px;
-}
+    .user-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
 
-.user-buttons button {
-  font-size: 2.1rem;
-  padding: 14px 26px;
-  border-radius: 12px;
-  border: 1.5px solid #2f80ed;
-  background-color: #fff;
-  color: #2f80ed;
-  box-shadow: none; /* quitar sombra para minimalismo */
-  cursor: pointer;
-  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
-  flex: 1;
-  max-width: 130px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-weight: 600;
-}
+    .user-buttons button {
+      font-size: 1.8rem;
+      padding: 14px 24px;
+      border-radius: 14px;
+      border: 2px solid #2f80ed;
+      background-color: #fff;
+      color: #2f80ed;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+      flex: 1;
+      max-width: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(47, 128, 237, 0.15);
+      user-select: none;
+    }
 
-.user-buttons button:hover {
-  background-color: #2f80ed;
-  color: #fff;
-  border-color: #2f80ed;
-  box-shadow: 0 4px 12px rgba(47, 128, 237, 0.25);
-}
+    .user-buttons button:hover {
+      background-color: #2f80ed;
+      color: white;
+      box-shadow: 0 6px 18px rgba(47, 128, 237, 0.35);
+      border-color: #2f80ed;
+    }
 
-#claveInputContainer {
-  max-width: 320px;
-  width: 90%;
-  margin: 0 auto 40px auto;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-}
+    #claveInputContainer {
+      max-width: 320px;
+      width: 90%;
+      margin: 0 auto 40px auto;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+    }
 
-#claveInputContainer label {
-  font-weight: 500;
-  font-size: 1rem;
-  margin-bottom: 8px;
-  color: #475569;
-  align-self: flex-start;
-}
+    #claveInputContainer label {
+      font-weight: 500;
+      font-size: 1rem;
+      margin-bottom: 8px;
+      color: #475569;
+      align-self: flex-start;
+    }
 
-#claveInputContainer input {
-  width: 100%;
-  padding: 12px 15px;
-  font-size: 1.1rem;
-  border-radius: 8px;
-  border: 1.2px solid #cbd5e1;
-  box-sizing: border-box;
-  margin-bottom: 15px;
-  outline-offset: 2px;
-  transition: border-color 0.3s ease;
-}
+    #claveInputContainer input {
+      width: 100%;
+      padding: 12px 15px;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      border: 1.2px solid #cbd5e1;
+      box-sizing: border-box;
+      margin-bottom: 15px;
+      outline-offset: 2px;
+      transition: border-color 0.3s ease;
+    }
 
-#claveInputContainer input:focus {
-  border-color: #2f80ed;
-  box-shadow: 0 0 6px rgba(47, 128, 237, 0.3);
-}
+    #claveInputContainer input:focus {
+      border-color: #2f80ed;
+      box-shadow: 0 0 6px rgba(47, 128, 237, 0.3);
+    }
 
-#claveInputContainer button {
-  background-color: #16a34a; /* verde más plano */
-  border: none;
-  padding: 12px 0;
-  width: 100%;
-  font-size: 1.2rem;
-  border-radius: 12px;
-  color: white;
-  cursor: pointer;
-  box-shadow: none;
-  transition: background-color 0.3s ease;
-}
+    #claveInputContainer button {
+      background-color: #16a34a;
+      border: none;
+      padding: 12px 0;
+      width: 100%;
+      font-size: 1.2rem;
+      border-radius: 12px;
+      color: white;
+      cursor: pointer;
+      box-shadow: none;
+      transition: background-color 0.3s ease;
+    }
 
-#claveInputContainer button:hover {
-  background-color: #15803d;
-}
+    #claveInputContainer button:hover {
+      background-color: #15803d;
+    }
 
-#errorClave {
-  color: #dc2626; /* rojo más plano */
-  margin-top: -10px;
-  margin-bottom: 10px;
-  display: none;
-  font-weight: 600;
-  font-size: 0.9rem;
-  align-self: flex-start;
-}
+    #errorClave {
+      color: #dc2626;
+      margin-top: -10px;
+      margin-bottom: 10px;
+      display: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      align-self: flex-start;
+    }
 
-#pantallaPrincipal {
-  margin: 30px 15px;
-  width: 100%;
-  max-width: 400px;
-  background: #fff;
-  border-radius: 20px;
-  padding: 30px 25px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  color: #334155;
-  font-weight: 600;
-}
+    #pantallaPrincipal {
+      margin: 30px 15px;
+      width: 100%;
+      max-width: 400px;
+      background: #fff;
+      border-radius: 20px;
+      padding: 30px 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      color: #334155;
+      font-weight: 600;
+    }
 
-#pantallaPrincipal header {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 35px;
-  text-align: center;
-  color: #2f80ed;
-  letter-spacing: 0.8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
+    #pantallaPrincipal header {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 35px;
+      text-align: center;
+      color: #2f80ed;
+      letter-spacing: 0.8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
 
-.user-info {
-  font-size: 1.25rem;
-  margin-bottom: 35px;
-  color: #475569;
-  text-align: center;
-  font-weight: 600;
-  font-family: 'Georgia', serif;
-}
+    .user-info {
+      font-size: 1.25rem;
+      margin-bottom: 35px;
+      color: #475569;
+      text-align: center;
+      font-weight: 600;
+      font-family: 'Georgia', serif;
+    }
 
-.menu button {
-  padding: 14px 24px;
-  margin: 10px 0;
-  font-size: 1.25rem;
-  border: none;
-  border-radius: 16px;
-  background-color: #2f80ed;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: auto;
-  min-width: 220px;
-  box-shadow: 0 6px 15px rgba(47, 128, 237, 0.4);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+    .menu button {
+      padding: 14px 24px;
+      margin: 10px 0;
+      font-size: 1.25rem;
+      border: none;
+      border-radius: 16px;
+      background-color: #2f80ed;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: auto;
+      min-width: 220px;
+      box-shadow: 0 6px 15px rgba(47, 128, 237, 0.4);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-.menu button svg {
-  width: 24px;
-  height: 24px;
-  fill: currentColor; /* para que herede el color del texto */
-}
+    .menu button svg {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+    }
 
-.menu button:hover {
-  background-color: #1d5dbb;
-  box-shadow: 0 8px 20px rgba(29, 93, 187, 0.6);
-}
+    .menu button:hover {
+      background-color: #1d5dbb;
+      box-shadow: 0 8px 20px rgba(29, 93, 187, 0.6);
+    }
 
-/* Botón Cerrar sesión */
-.menu button.cerrar-sesion {
-  background-color: #ef4444;
-  margin-top: 25px;
-  box-shadow: 0 6px 15px rgba(239, 68, 68, 0.4);
-}
+    .menu button.cerrar-sesion {
+      background-color: #ef4444;
+      margin-top: 25px;
+      box-shadow: 0 6px 15px rgba(239, 68, 68, 0.4);
+    }
 
-.menu button.cerrar-sesion:hover {
-  background-color: #b91c1c;
-  box-shadow: 0 8px 20px rgba(185, 28, 28, 0.6);
-}
+    .menu button.cerrar-sesion:hover {
+      background-color: #b91c1c;
+      box-shadow: 0 8px 20px rgba(185, 28, 28, 0.6);
+    }
 
-/* Modal confirmación cierre sesión */
-#modalCerrarSesion {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-color: rgba(0,0,0,0.3);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 2000;
-}
+    #modalCerrarSesion {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0,0,0,0.3);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
 
-#modalCerrarSesion .modal-content {
-  background: white;
-  padding: 28px 36px;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-  text-align: center;
-  max-width: 320px;
-  width: 90%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+    #modalCerrarSesion .modal-content {
+      background: white;
+      padding: 28px 36px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      text-align: center;
+      max-width: 320px;
+      width: 90%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-#modalCerrarSesion p {
-  font-size: 1.2rem;
-  margin-bottom: 24px;
-  color: #334155;
-  font-weight: 600;
-}
+    #modalCerrarSesion p {
+      font-size: 1.2rem;
+      margin-bottom: 24px;
+      color: #334155;
+      font-weight: 600;
+    }
 
-#modalCerrarSesion .buttons {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-}
+    #modalCerrarSesion .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
 
-#modalCerrarSesion button {
-  flex: 1;
-  padding: 12px 0;
-  font-size: 1.1rem;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
-}
+    #modalCerrarSesion button {
+      flex: 1;
+      padding: 12px 0;
+      font-size: 1.1rem;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
 
-#modalCerrarSesion #btnNo {
-  background-color: #cbd5e1;
-  color: #334155;
-  box-shadow: none;
-}
+    #modalCerrarSesion #btnNo {
+      background-color: #cbd5e1;
+      color: #334155;
+      box-shadow: none;
+    }
 
-#modalCerrarSesion #btnNo:hover {
-  background-color: #94a3b8;
-}
+    #modalCerrarSesion #btnNo:hover {
+      background-color: #94a3b8;
+    }
 
-#modalCerrarSesion #btnSi {
-  background-color: #ef4444;
-  color: white;
-  box-shadow: none;
-}
+    #modalCerrarSesion #btnSi {
+      background-color: #ef4444;
+      color: white;
+      box-shadow: none;
+    }
 
-#modalCerrarSesion #btnSi:hover {
-  background-color: #b91c1c;
-}
+    #modalCerrarSesion #btnSi:hover {
+      background-color: #b91c1c;
+    }
 
-    /* Responsive */
     @media (max-width: 480px) {
       #pantallaPrincipal {
         border-radius: 0;
@@ -285,7 +281,7 @@ body {
         padding: 25px 15px;
       }
       .user-buttons button {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         padding: 14px 18px;
         max-width: 110px;
       }
@@ -303,19 +299,16 @@ body {
   <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body>
-  <!-- Google login button -->
   <div id="login"></div>
 
-  <!-- Selector persona -->
   <div id="userSelector" style="display:none;">
     <h2>¿Quién eres?</h2>
     <div class="user-buttons">
-      <button id="btnSilvia"><i data-feather="user"></i> Silvia</button>
-      <button id="btnManuel"><i data-feather="user-check"></i> Manuel</button>
+      <button id="btnSilvia">🧑🏿‍🦱 Silvia</button>
+      <button id="btnManuel">🧑🏿‍🦰 Manuel</button>
     </div>
   </div>
 
-  <!-- Campo clave y botón Iniciar -->
   <div id="claveInputContainer" style="display:none; flex-direction: column; align-items: center;">
     <label for="inputClave">Introduce tu clave:</label>
     <input type="password" id="inputClave" placeholder="Clave personal" autocomplete="off" />
@@ -323,83 +316,30 @@ body {
     <button id="btnIniciarSesion">Iniciar sesión</button>
   </div>
 
-  <!-- Pantalla principal -->
   <div id="pantallaPrincipal" style="display:none;">
     <header><i data-feather="shopping-cart"></i> Lista Compartida</header>
-    <div class="user-info" id="infoUsuario"></div>
+    <div class="user-info" id="userInfo"></div>
     <div class="menu">
-      <button onclick="mostrarLista()">
-        <i data-feather="list"></i>
-        Lista de la compra
+      <button id="btnAbrirLista">
+        <i data-feather="list"></i> Abrir lista de la compra
       </button>
-      <button onclick="escanearTicket()">
-        <i data-feather="camera"></i>
-        Escanear ticket
+      <button id="btnAbrirListaEnCasa">
+        <i data-feather="home"></i> Abrir lista en casa
       </button>
-      <button onclick="verGastos()">
-        <i data-feather="dollar-sign"></i>
-        Reparto de gastos
-      </button>
-      <button onclick="abrirModalCerrarSesion()" class="cerrar-sesion">
-        <i data-feather="log-out"></i>
-        Cerrar sesión
+      <button id="btnCerrarSesion" class="cerrar-sesion">
+        <i data-feather="log-out"></i> Cerrar sesión
       </button>
     </div>
   </div>
 
-  <!-- Modal cierre sesión -->
-  <div id="modalCerrarSesion" style="display:none; justify-content:center; align-items:center;">
+  <div id="modalCerrarSesion">
     <div class="modal-content">
-      <p>¿Quieres cerrar sesión?</p>
+      <p>¿Seguro que quieres cerrar sesión?</p>
       <div class="buttons">
         <button id="btnNo">No</button>
         <button id="btnSi">Sí</button>
       </div>
     </div>
   </div>
-
-  <!-- Google Identity Services -->
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
-
-  <script>
-    // Añadir eventos botones usuarios para abrir modal clave
-    document.getElementById("btnSilvia").addEventListener("click", function() {
-      abrirModalClave("Silvia");
-    });
-    document.getElementById("btnManuel").addEventListener("click", function() {
-      abrirModalClave("Manuel");
-    });
-
-    // Evento botón iniciar sesión
-    document.getElementById("btnIniciarSesion").addEventListener("click", validarClave);
-
-    // Mostrar modal de confirmación para cerrar sesión
-    function abrirModalCerrarSesion() {
-      const modal = document.getElementById("modalCerrarSesion");
-      if (modal) modal.style.display = "flex";
-    }
-
-    // Manejar botones modal cerrar sesión
-    document.getElementById("btnNo").addEventListener("click", function() {
-      const modal = document.getElementById("modalCerrarSesion");
-      if (modal) modal.style.display = "none";
-    });
-
-    document.getElementById("btnSi").addEventListener("click", function() {
-      cerrarSesion();
-      const modal = document.getElementById("modalCerrarSesion");
-      if (modal) modal.style.display = "none";
-    });
-
-    // Renderizar iconos Feather al cargar DOM
-    document.addEventListener('DOMContentLoaded', () => {
-      if(window.feather) {
-        feather.replace();
-      }
-    });
-  </script>
-
-  <!-- Tu script externo -->
-  <script src="script.js"></script>
 </body>
 </html>
