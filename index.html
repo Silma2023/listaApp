@@ -587,7 +587,23 @@ body {
 
   <!-- Google Identity Services -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="https://apis.google.com/js/api.js"></script>
+<script>
+  function initClient() {
+    gapi.client.init({
+      apiKey: 'AIzaSyDNZl9tWlRiLTP7VzTneEqmgonSEB_BFQI',
+      clientId: '789785230410-q2n02ojto3jjider6io17sg0iq7hhao0.apps.googleusercontent.com',
+      discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
+      scope: 'https://www.googleapis.com/auth/drive.file'
+    }).then(function () {
+      // Cliente listo
+    }, function(error) {
+      console.error(error);
+    });
+  }
 
+  gapi.load('client:auth2', initClient);
+</script>
   <script>
     // Añadir eventos botones usuarios para abrir modal clave
     document.getElementById("btnSilvia").addEventListener("click", function() {
